@@ -8,7 +8,7 @@
   ==============================================================================
 */
 
-#include "RNBO_JuceAudioProcessorEditor.h"
+#include "Custom_JuceAudioProcessorEditor.h"
 
 namespace RNBO {
 

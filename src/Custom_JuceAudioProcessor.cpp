@@ -8,8 +8,8 @@
   ==============================================================================
 */
 
-#include "RNBO_JuceAudioProcessor.h"
-#include "RNBO_JuceAudioProcessorEditor.h"
+#include "Custom_JuceAudioProcessor.h"
+#include "Custom_JuceAudioProcessorEditor.h"
 #include "RNBO_JuceAudioProcessorUtils.h"
 
 #if JUCE_TARGET_HAS_BINARY_DATA
