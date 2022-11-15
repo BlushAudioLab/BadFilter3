@@ -176,30 +176,9 @@ CustomAudioProcessorEditor::CustomAudioProcessorEditor(AudioProcessor* const p, 
 	jassert (p != nullptr);
 	setOpaque (true);
 
-	addAndMakeVisible (_panel);
+	addAndMakeVisible (_rootComponent);
 
-	const int numParams = p->getParameters().size();
-	int totalHeight = 0;
-
-	for (int i = 0; i < numParams; ++i)
-	{
-		juce::String name (p->getParameters()[i]->getName(256));
-		if (name.trim().isEmpty())
-			name = "Unnamed";
-
-		ProcessorParameterPropertyComp* const pc = new ProcessorParameterPropertyComp (name, *p, i);
-		_params.add (pc);
-		totalHeight += pc->getPreferredHeight();
-	}
-
-    PresetPropertyComp* const presetChooserComponent = new PresetPropertyComp (*p);
-    _presetChooserComponents.add (presetChooserComponent);
-    totalHeight += presetChooserComponent->getPreferredHeight();
-
-	_panel.addProperties (_params);
-    _panel.addProperties (_presetChooserComponents);
-
-	setSize (400, jlimit (25, 400, totalHeight));
+	setSize (_rootComponent.getWidth(), _rootComponent.getHeight());
 }
 
 CustomAudioProcessorEditor::~CustomAudioProcessorEditor()
@@ -213,7 +192,7 @@ void CustomAudioProcessorEditor::paint (Graphics& g)
 
 void CustomAudioProcessorEditor::resized()
 {
-	_panel.setBounds (getLocalBounds());
+	// _panel.setBounds (getLocalBounds());
 }
 
 void CustomAudioProcessorEditor::handleAsyncUpdate()
@@ -228,10 +207,7 @@ void CustomAudioProcessorEditor::eventsAvailable()
 
 void CustomAudioProcessorEditor::updateAllParams()
 {
-	for (PropertyComponent* p : _params) {
-		ProcessorParameterPropertyComp* pc = dynamic_cast<ProcessorParameterPropertyComp*>(p);
-		pc->notifyParamChange();
-	}
+	// Empty for now
 }
 
 void CustomAudioProcessorEditor::handleParameterEvent(const ParameterEvent&) {

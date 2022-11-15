@@ -13,6 +13,7 @@
 
 #include "JuceHeader.h"
 #include "RNBO.h"
+#include "RootComponent.h"
 
 namespace RNBO {
 
@@ -45,12 +46,10 @@ namespace RNBO {
 		void updateAllParams();
 
 		//==============================================================================
-		PropertyPanel							_panel;
 		CoreObject&								_rnboObject;
 		ParameterEventInterfaceUniquePtr		_parameterInterface;
 
-		Array <PropertyComponent*>	_params;
-        Array <PropertyComponent*>  _presetChooserComponents;
+		RootComponent	_rootComponent;
 	};
 
 } // namespace RNBO
