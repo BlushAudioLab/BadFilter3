@@ -176,7 +176,9 @@ CustomAudioProcessorEditor::CustomAudioProcessorEditor(AudioProcessor* const p, 
 	jassert (p != nullptr);
 	setOpaque (true);
 
+	_rootComponent.setSize(400, 180);
 	addAndMakeVisible (_rootComponent);
+	_rootComponent.setRNBOObject(&_rnboObject);
 
 	setSize (_rootComponent.getWidth(), _rootComponent.getHeight());
 }
@@ -210,8 +212,8 @@ void CustomAudioProcessorEditor::updateAllParams()
 	// Empty for now
 }
 
-void CustomAudioProcessorEditor::handleParameterEvent(const ParameterEvent&) {
-	updateAllParams();
+void CustomAudioProcessorEditor::handleParameterEvent(const ParameterEvent& event) {
+	_rootComponent.updateSliderForParam(event.getIndex(), event.getValue());
 }
 
 void CustomAudioProcessorEditor::handlePresetEvent(const PresetEvent& event) {

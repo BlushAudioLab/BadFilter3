@@ -21,6 +21,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include <JuceHeader.h>
+#include "RNBO.h"
 //[/Headers]
 
 
@@ -43,6 +44,8 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+    void setRNBOObject(RNBO::CoreObject *obj);
+    void updateSliderForParam(unsigned long index, double value);
     //[/UserMethods]
 
     void paint (juce::Graphics& g) override;
@@ -53,6 +56,9 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+    RNBO::CoreObject *_coreObject;
+
+    unsigned long sliderParameterIndexes[2]; //stores the index of values we want to control
     //[/UserVariables]
 
     //==============================================================================

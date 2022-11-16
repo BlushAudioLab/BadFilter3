@@ -141,11 +141,13 @@ void RootComponent::sliderValueChanged (juce::Slider* sliderThatWasMoved)
     if (sliderThatWasMoved == juce__slider.get())
     {
         //[UserSliderCode_juce__slider] -- add your slider handling code here..
+        _coreObject->setParameterValue(sliderParameterIndexes[0], sliderThatWasMoved->getValue());
         //[/UserSliderCode_juce__slider]
     }
     else if (sliderThatWasMoved == juce__slider2.get())
     {
         //[UserSliderCode_juce__slider2] -- add your slider handling code here..
+        _coreObject->setParameterValue(sliderParameterIndexes[1], sliderThatWasMoved->getValue());
         //[/UserSliderCode_juce__slider2]
     }
 
@@ -156,6 +158,42 @@ void RootComponent::sliderValueChanged (juce::Slider* sliderThatWasMoved)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+void RootComponent::setRNBOObject(RNBO::CoreObject *obj)
+{
+    RNBO::ParameterInfo parameterInfo;
+    _coreObject = obj;
+    
+    for (unsigned long i = 0; i < _coreObject->getNumParameters(); i++) {
+        auto parameterName = _coreObject->getParameterId(i);
+        if (juce::String(parameterName) == "Cutoff") {
+            
+            sliderParameterIndexes[0] = i;
+            auto slider = juce__slider.get();
+            _coreObject->getParameterInfo(i, &parameterInfo);
+            slider->setRange(parameterInfo.min, parameterInfo.max);
+            
+        } else if (juce::String(parameterName) == "Resonance") {
+            
+            sliderParameterIndexes[1] = i;
+            auto slider = juce__slider2.get();
+            _coreObject->getParameterInfo(i, &parameterInfo);
+            slider->setRange(parameterInfo.min, parameterInfo.max);   
+        }
+    }
+}
+
+void RootComponent::updateSliderForParam(unsigned long index, double value)
+{
+    if (sliderParameterIndexes[0] == index) {
+        juce__slider.get()->setValue(value);
+    } else if (sliderParameterIndexes[1] == index) {
+        juce__slider2.get()->setValue(value);
+    }    
+}
+//[/MiscUserCode]
+
+
+
 //[/MiscUserCode]
 
 
